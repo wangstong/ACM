@@ -56,6 +56,7 @@ int main() {
                     continue;
                 }
             }
+
             printf("Case #%d:\n", kcase++);
             for (int i = 1; i < k; i++) {
                 printf("%lld %c\n", a[i], (num[i]==1) ? '-':'+');
