@@ -1,0 +1,20 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+typedef long long ll;
+
+int main() {
+    ll n, m;
+    int x1, x2, y1, y2;
+    cin >> n >> m;
+    cin >> x1 >> y1 >> x2 >> y2;
+
+    int sum = 0;
+    sum = abs(x1-x2) + abs(y1-y2);
+    if (sum % 2 == 0)
+        cout << "Win" << endl;
+    else
+        cout << "Lose" << endl;
+    return 0;
+}

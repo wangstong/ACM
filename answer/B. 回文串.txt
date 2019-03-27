@@ -1,0 +1,36 @@
+﻿#include <bits/stdc++.h>
+
+using namespace std;
+
+typedef long long ll;
+
+double a[1000005];
+
+int main() {
+    double n;
+    cin >> n;
+
+    for (ll i = 1; i <= n; ++i) {
+        scanf("%lf", &a[i]);
+    }
+    ll x = 1, y = n, Count = 0;
+    while (x <= y) {
+        if (a[x] == a[y]) {
+            ++x;
+            --y;
+        }
+        else if (a[x] < a[y]) {
+            a[x+1] = a[x] + a[x+1];
+            x++;
+            ++Count;
+        }
+        else {
+            a[y-1] = a[y] + a[y-1];
+            --y;
+            ++Count;
+        }
+    }
+    cout << Count << endl;
+
+    return 0;
+}
