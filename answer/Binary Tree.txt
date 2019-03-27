@@ -1,0 +1,67 @@
+﻿#include <bits/stdc++.h>
+
+using namespace std;
+
+typedef long long LL;
+
+long long a[63], b[63], num[63];
+
+int main() {
+    int T, kcase = 1;
+    cin >> T;
+
+    for (int i = 1; i <= 61; i++)
+        a[i] = (1ll<<(i-1));  // 1必须格式化为long long类型不然会出错
+    for (int i = 0; i <= 61; i++)
+        b[i] = (1ll<<i) - 1;
+    while (T--) {
+        LL n, k;
+        memset(num, 0, sizeof(num));
+        cin >> n >> k;
+        if (n%2 == 1) {
+            LL rest = (b[k]-n)/2;
+            for (int i = 62; i >= 1; i--) {
+                if (a[i] > rest) {
+                    continue;
+                }
+                else if (a[i] == rest) {
+                    num[i] = 1;
+                    break;
+                }
+                else {
+                    num[i] = 1;
+                    rest -= a[i];
+                    continue;
+                }
+            }
+
+            printf("Case #%d:\n", kcase++);
+            for (int i = 1; i <= k; i++) {
+                printf("%lld %c\n", a[i], (num[i]==1) ? '-':'+');
+            }
+        }
+        else {
+            LL rest = (b[k]+1-n)/2;
+            for (int i = 62; i >= 1; i--) {
+                if (a[i] > rest) {
+                    continue;
+                }
+                else if (a[i] == rest) {
+                    num[i] = 1;
+                    break;
+                }
+                else {
+                    num[i] = 1;
+                    rest -= a[i];
+                    continue;
+                }
+            }
+            printf("Case #%d:\n", kcase++);
+            for (int i = 1; i < k; i++) {
+                printf("%lld %c\n", a[i], (num[i]==1) ? '-':'+');
+            }
+            cout << a[k]+1 << " +" << endl;
+        }
+    }
+    return 0;
+}

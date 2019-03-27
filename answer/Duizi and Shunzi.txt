@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+#define mt(a) memset(a, 0, sizeof(a))
+
+using namespace std;
+
+int a[1000005];
+
+int main() {
+    int n;
+    while (cin >> n) {
+        int x, num = 0;
+        mt(a);
+        for (int i = 1; i <= n; i++) {
+            scanf("%d", &x);
+            a[x]++;
+        }
+
+        for(int i=1;i<=n;i++) {
+            if(a[i] > 2) {
+                if(a[i]%2==0) {
+                    num += (a[i]-2)/2;
+                    a[i] = 2;
+                }
+                else {
+                    num += a[i]/2;
+                    a[i] = 1;
+                }
+            }
+        }
+
+        for (int i = 1; i <= n; i++) {
+            if (a[i] == 2) {
+                if (i+1<=n && a[i+1]==2) {
+                    if (i+2<=n && a[i+2]==2) {
+                        a[i] = a[i+1] = a[i+2] = 0;
+                        num += 3;
+                    }
+                    else {
+                        a[i] = a[i+1] = 0;
+                        num += 2;
+                    }
+                }
+                else {
+                    if (i-1>=1 && i-2 >= 1 && a[i-1] && a[i-2]) {
+                        a[i-1]--;
+                        a[i-2]--;
+                        a[i]--;
+                        num++;
+                    }
+                    else {
+                        a[i] = 0;
+                        num++;
+                    }
+                }
+            }
+            else if (a[i] == 1) {
+                if (i-1>=1 && i-2>=1 && a[i-1]>=1 && a[i-2]>=1) {
+                    a[i-1]--;
+                    a[i-2]--;
+                    a[i]--;
+                    num++;
+                }
+            }
+        }
+        cout << num << endl;
+    }
+    return 0;
+}

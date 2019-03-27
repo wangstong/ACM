@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+bool a[3005][3005];
+
+int main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        int n;
+        cin >> n;
+        for (int i = 1; i <= n; i++) {
+            for (int j = i+1; j <= n; j++) {
+                scanf("%d", &a[i][j]);
+            }
+        }
+
+        bool flag1 = false, flag2 = false;
+        for (int i = 1; i <= n; i++) {
+            for (int j = i+1; j <= n; j++) {
+                for (int k = j+1; k <= n; k++) {
+                    if (a[i][j] && a[i][k] && a[j][k]) {
+                        flag1 = true;
+                        break;
+                    }
+                    if (!a[i][j] && !a[i][k] && !a[j][k]) {
+                        flag2 = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (flag1 || flag2)
+            cout << "Bad Team!" << endl;
+        else
+            cout << "Great Team!" << endl;
+    }
+    return 0;
+}

@@ -1,0 +1,66 @@
+Duizi and Shunzi
+Time Limit: 6000/3000 MS (Java/Others)    Memory Limit: 32768/32768 K (Java/Others)
+Total Submission(s): 3963    Accepted Submission(s): 1465
+
+
+Problem Description
+Nike likes playing cards and makes a problem of it.
+
+Now give you n integers, ai(1¡Üi¡Ün)
+
+We define two identical numbers (eg: 2,2) a Duizi,
+and three consecutive positive integers (eg: 2,3,4) a Shunzi.
+
+Now you want to use these integers to form Shunzi and Duizi as many as possible.
+
+Let s be the total number of the Shunzi and the Duizi you formed.
+
+Try to calculate max(s).
+
+Each number can be used only once.
+ 
+
+Input
+The input contains several test cases.
+
+For each test case, the first line contains one integer n(1¡Ün¡Ü106).
+Then the next line contains n space-separated integers ai (1¡Üai¡Ün)
+ 
+
+Output
+For each test case, output the answer in a line.
+ 
+
+Sample Input
+
+7
+1 2 3 4 5 6 7
+9
+1 1 1 2 2 2 3 3 3
+6
+2 2 3 3 3 3 
+6
+1 2 3 3 4 5
+
+ 
+
+Sample Output
+
+2
+4
+3
+2
+
+Hint
+
+
+
+Case 1£¨1£¬2£¬3£©£¨4£¬5£¬6£©
+
+Case 2£¨1£¬2£¬3£©£¨1£¬1£©£¨2£¬2£©£¨3£¬3£©
+
+Case 3£¨2£¬2£©£¨3£¬3£©£¨3£¬3£©
+
+Case 4£¨1£¬2£¬3£©£¨3£¬4£¬5£©
+
+
