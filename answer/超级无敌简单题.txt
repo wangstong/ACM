@@ -1,0 +1,58 @@
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <cstdio>
+#include <cstring>
+#include <vector>
+
+using namespace std;
+
+int f[500005];
+
+int getFriend(int v) {
+    if(f[v] == v) {
+        return v;
+    }
+    return f[v] = getFriend(f[v]);
+}
+
+void merge(int a, int b) {
+    int t1 = getFriend(a);
+    int t2 = getFriend(b);
+    if(t1 != t2) { f[t2] = t1; }
+}
+
+void dfs(int n) {
+    int sum = 0, N = n;
+    while (n > 0) {
+        sum += (n%10)*(n%10);
+        n /= 10;
+    }
+    if (getFriend(N) == getFriend(sum))
+        return;
+    merge(N, sum);
+    dfs(sum);
+}
+
+int main() {
+    for(int i = 1; i <= 500000; i++) {
+        f[i] = i;
+    }
+    int Q;
+    cin >> Q;
+
+    vector<int> v;
+    for (int i = 1; i <= 500000; i++) {
+        dfs(i);
+    }
+    for (int i = 1; i <= 500000; i++) {
+        if (getFriend(i) == getFriend(1))
+            v.push_back(i);
+    }
+    while (Q--) {
+        int k;
+        cin >> k;
+        cout << v[k-1] << endl;
+    }
+    return 0;
+}

@@ -1,0 +1,47 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+long getCntOfPre(long pre, long n)
+{
+    long cnt = 1;
+    long p = 10;
+    for (; pre*p <= n; p *= 10)
+        cnt += min(n, pre*p - 1 + p) - pre*p + 1;
+    return cnt;
+}
+
+long solve(long n, long m)
+{
+    long ans = 1;
+    while (m != 0)
+    {
+        long cnt = getCntOfPre(ans, n);
+        if (cnt >= m)
+        {
+            m--;
+            if (m == 0)
+                break;
+            ans *= 10;
+        }
+        else
+        {
+            m -= cnt;
+            ans++;
+        }
+    }
+    return ans;
+}
+
+int main()
+{
+    long n, k;
+    int T;
+    cin >> T;
+    while (T--) {
+        cin >> n >> k;
+        cout << solve(n, k) << endl;
+    }
+    return 0;
+}

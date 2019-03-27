@@ -1,0 +1,31 @@
+zyb的面试
+Time Limit: 2000/1000 MS (Java/Others)    Memory Limit: 65536/65536 K (Java/Others)
+Total Submission(s): 1350    Accepted Submission(s): 248
+
+
+Problem Description
+今天zyb参加一场面试,面试官听说zyb是ACMer之后立马抛出了一道算法题给zyb:
+有一个序列,是1到n的一种排列,排列的顺序是字典序小的在前,那么第k个数字是什么?
+例如n=15,k=7, 排列顺序为1, 10, 11, 12, 13, 14, 15, 2, 3, 4, 5, 6, 7, 8, 9;那么第7个数字就是15.
+那么,如果你处在zyb的场景下,你能解决这个问题吗?
+ 
+
+Input
+T组样例(T<=100)
+两个整数n和k(1<=n<=1e6,1<=k<=n),n和k代表的含义如上文
+ 
+
+Output
+输出1-n之中字典序第k小的数字
+ 
+
+Sample Input
+
+1
+15 7
+
+ 
+
+Sample Output
+
+15

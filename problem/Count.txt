@@ -1,0 +1,41 @@
+	
+Count
+Time Limit: 6000/3000 MS (Java/Others)    Memory Limit: 65536/65536 K (Java/Others)
+Total Submission(s): 704    Accepted Submission(s): 276
+
+
+Problem Description
+Farmer John有n头奶牛.
+某天奶牛想要数一数有多少头奶牛,以一种特殊的方式:
+第一头奶牛为1号,第二头奶牛为2号,第三头奶牛之后,假如当前奶牛是第n头,那么他的编号就是2倍的第n-2头奶牛的编号加上第n-1头奶牛的编号再加上自己当前的n的三次方为自己的编号.
+现在Farmer John想知道,第n头奶牛的编号是多少,估计答案会很大,你只要输出答案对于123456789取模.
+ 
+
+Input
+第一行输入一个T,表示有T组样例
+接下来T行,每行有一个正整数n,表示有n头奶牛 (n>=3)
+其中，T=10^4,n<=10^18
+ 
+
+Output
+共T行,每行一个正整数表示所求的答案
+ 
+
+Sample Input
+
+5
+3
+6
+9
+12
+15
+
+ 
+
+Sample Output
+
+31
+700
+7486
+64651
+527023
