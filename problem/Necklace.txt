@@ -1,0 +1,33 @@
+Necklace
+Time Limit: 2 Seconds      Memory Limit: 65536 KB      Special Judge
+
+A necklace consists of several beads which are forming a closed loop. Each bead can only be one of the N distinct colors. First, we define concept "pair-of-colors" which contains two different colors, like (blue, red) or (white, black). Let's consider a "pair-of-colors" set S which contains all possible color pairs. For example, when there are 3 distinct colors: blue, red, white; S will be { (blue, red), (blue, white), (red, blue), (red, white), (white, red), (white, blue) }.
+
+Now, let's add the colors of each two adjacent beads on a necklace as "pair-of-colors" to an empty set. If the result set is the same with S on all distinct colors appeared in the necklace, the necklace is perfect. Cissy wants to know what the shortest perfect necklace is when there are infinite beads with all N distinct colors.
+
+Input
+
+The input consists of several test cases. For each case, there are a positive integers N indicating the number of different bead colors.
+
+N is odd integer, in the range of [3,49].
+
+Proceed to the end of file.
+
+Output
+
+For each test case, output the minimal length of the perfect necklace in one line followed with the configuration of necklace in the second line. Here use integers in [0, N-1] to indicate the color of the bead.
+
+If there are more than one configuration with the minimal length, output any one of them.
+
+Sample Input
+
+3
+7
+
+Sample Output
+
+3
+2 1 0
+21
+4 0 5 1 6 2 3 4 2 5 3 6 4 5 6 0 1 2 0 3 1
+

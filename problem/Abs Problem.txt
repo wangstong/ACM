@@ -1,0 +1,29 @@
+Abs Problem
+Time Limit: 2 Seconds      Memory Limit: 65536 KB      Special Judge
+
+Alice and Bob is playing a game, and this time the game is all about the absolute value!
+
+Alice has N different positive integers, and each number is not greater than N. Bob has a lot of blank paper, and he is responsible for the calculation things. The rule of game is pretty simple. First, Alice chooses a number a1 from the N integers, and Bob will write it down on the first paper, that's b1. Then in the following kth rounds, Alice will choose a number ak (2 ¡Ü k ¡Ü N), then Bob will write the number bk=|ak-bk-1| on the kth paper. |x| means the absolute value of x.
+
+Now Alice and Bob want to kown, what is the maximum and minimum value of bN. And you should tell them how to achieve that!
+Input
+
+The input consists of multiple test cases;
+
+For each test case, the first line consists one integer N, the number of integers Alice have. (1 ¡Ü N ¡Ü 50000)
+Output
+
+For each test case, firstly print one line containing two numbers, the first one is the minimum value, and the second is the maximum value.
+
+Then print one line containing N numbers, the order of integers that Alice should choose to achieve the minimum value. Then print one line containing N numbers, the order of integers that Alice should choose to achieve the maximum value.
+
+Attention: Alice won't choose a integer more than twice.
+Sample Input
+
+2
+
+Sample Output
+
+1 1
+1 2
+2 1

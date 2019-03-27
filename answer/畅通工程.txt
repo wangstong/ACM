@@ -1,0 +1,53 @@
+#include <iostream>
+#include <cstring>
+#include <set>
+#include <algorithm>
+
+using namespace std;
+
+int M, N;
+int fa[1001];
+
+int find(int u);
+void join(int u, int v);
+
+int main()
+{
+    int n;
+    while((cin >> N) && N && (cin >> M)) {
+        for (int i = 1; i <= N; i++)
+            fa[i] = i;
+
+        int u, v;
+        for (int i = 1; i <= M; i++) {
+            cin >> u >> v;
+            join(u, v);
+        }
+
+        set<int> Set;
+        for (int i = 1; i <= N; i++) {
+            Set.insert(find(i));
+        }
+
+        int n = 0;
+        for (set<int>::iterator iter = Set.begin(); iter != Set.end(); iter++)
+            n++;
+
+        cout << n-1 << endl;
+    }
+    return 0;
+}
+
+int find(int u) {
+    if (fa[u] != u)
+        fa[u] = find(fa[u]);
+    return fa[u];
+}
+
+void join(int u, int v) {
+    int fau = find(u);
+    int fav = find(v);
+    if (fau == fav)
+        return;
+    fa[fau] = fav;
+}

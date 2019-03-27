@@ -1,0 +1,36 @@
+#include <iostream>
+#include <cstring>
+#include <string>
+#include <algorithm>
+#include <cstdio>
+
+using namespace std;
+
+int x1[15], x2[15], y1[15], y2[15];
+
+int main()
+{
+    int N;
+    while (cin >> N && N != 0) {
+        for (int i = 0; i < N; i++) {
+            cin >> x1[i] >> y1[i] >> x2[i] >> y2[i];
+        }
+        int q, x, y;
+        cin >> q;
+        for (int i = 0; i < q; i++) {
+            bool flag = false;
+            cin >> x >> y;
+            for (int j = N; j >= 0; j--) {
+                if (x1[j] <= x && x <= x2[j] && y1[j] <= y && y <= y2[j]) {
+                    cout << j << endl;
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag == false) {
+                cout << -1 << endl;
+            }
+        }
+    }
+    return 0;
+}

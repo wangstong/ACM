@@ -1,0 +1,38 @@
+Simplest Task in Windows
+Time Limit: 2 Seconds      Memory Limit: 65536 KB
+
+A typical windows platform may have several windows on the desktop. A user's operation may be as simple as a single click of the mouse. In the implementation of such a windows platform, one of the simplest tasks would be deciding which window had been clicked.
+
+Given a serial of windows, for each mouse click, decide which window had been clicked. Please notice that windows may overlap, and the window on top would receive the click rather than others. And, we consider a window to be clicked even if the mouse is just on its edge/corner. For the sake of simplicity, we assume that a window will not be activated to the top by any click.
+
+
+Input
+
+The first part of input is a serial of windows. First an integer N (1 <= N <= 10) is given, indicating the number of windows. Then N lines follow, each containing four integers, x1, y1, x2, y2, (x1 < x2, y1 < y2) the coordinates of the upper-left and lower-right corners of a window. The windows are given in back-to-front order. N=0 signals the end of input.
+
+The second part of input is a serial of mouse clicks. First an integer M (1 <= M <= 50) is given, indicating the number of mouse clicks. Then M lines follow, each containing two integers, x and y, the coordinates of a mouse click.
+
+
+Output
+
+For each mouse click in the input, output a single line containing the index (starting from 0) of the window which receives the click. If there is no such window, output "-1" in a line instead.
+
+
+Sample Input
+
+1
+0 0 5 5
+3
+4 1
+5 1
+6 1
+0
+
+
+Sample Output
+
+0
+0
+-1
+
+

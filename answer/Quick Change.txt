@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <string.h>
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int T, N = 1;
+    cin >> T;
+    while (T--) {
+        int money;
+        cin >> money;
+
+        int a1 = money / 25;
+        money %= 25;
+        int a2 = money / 10;
+        money %= 10;
+        int a3 = money / 5;
+        money %= 5;
+        int a4 = money;
+
+        printf("%d %d QUARTER(S), %d DIME(S), %d NICKEL(S), %d PENNY(S)\n", N++, a1, a2, a3, a4);
+    }
+    return 0;
+}

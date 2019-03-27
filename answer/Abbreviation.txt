@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <string.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    while (n--) {
+        int x1, x2;
+        string s1[10], s2[10];
+        bool flag = true;
+
+        cin >> x1;
+        for (int i = 0; i < x1; i++)
+            cin >> s1[i];
+        cin >> x2;
+        for (int i = 0; i < x2; i++)
+            cin >> s2[i];
+
+        for (int i = 0; i < min(x1, x2); i++) {
+            if (s1[i][0] != s2[i][0]) {
+                flag = false;
+                break;
+            }
+        }
+        if (x1 != x2)
+            flag = false;
+        if (flag)
+            cout << "SAME" << endl;
+        else
+            cout << "DIFFERENT" << endl;
+    }
+    return 0;
+}
