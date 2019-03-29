@@ -1,0 +1,40 @@
+/*
+题意：求斐波那契数列每一项的平方的连续一段和。
+前缀和，注意最后相减之后要加mod再模mod防止出现负数
+*/
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define mod 192600817
+
+long long f[50005], m[50005];
+
+void init() {
+    f[1] = f[2] = 1;
+    m[1] = 1;
+    m[2] = 2;
+    for (int i = 3; i <= 50000; i++) {
+        f[i] = (f[i-1]+f[i-2])%mod;
+        m[i] = (f[i]*f[i])%mod;
+        m[i] = (m[i]+m[i-1])%mod;
+    }
+}
+
+int main() {
+    init();
+    int Q;
+    while(cin >> Q) {
+        while (Q--) {
+            int a, b, c, d;
+            cin >> a >> b >> c >> d;
+            int p, q;
+            p = a*4+b+1;
+            q = c*4+d+1;
+            if (p < q)
+                swap(p, q);
+            cout << (m[p]-m[q-1]+mod)%mod << endl;
+        }
+    }
+    return 0;
+}
