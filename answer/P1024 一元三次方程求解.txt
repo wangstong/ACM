@@ -1,0 +1,37 @@
+﻿#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+    double a, b, c, d;
+    while (cin >> a >> b >> c >> d) {
+        double A = b*b - 3*a*c;
+        double B = b*c - 9*a*d;
+        double C = c*c - 3*b*d;
+        double del = B*B - 4*A*C;
+        double x1, x2, x3;
+        if (A == B && A == 0) {
+            x1 = x2 = x3 = -c/b;
+        }
+        else if (del == 0) {
+            double K = B/A;
+            x1 = -b/a + K;
+            x2 = x3 = -K/2;
+        }
+        else if (del < 0) {
+            double T = (2*A*b-3*a*B)/(2*A*sqrt(A));
+            double theta = acos(T)/3.0;
+            x1 = (-b-2*sqrt(A)*cos(theta))/(3*a);
+            x2 = (-b+sqrt(A)*(cos(theta)+sqrt(3)*sin(theta)))/(3*a);
+            x3 = (-b+sqrt(A)*(cos(theta)-sqrt(3)*sin(theta)))/(3*a);
+        }
+        if (x1 > x2)
+            swap(x1, x2);
+        if (x1 > x3)
+            swap(x1, x3);
+        if (x2 > x3)
+            swap(x2, x3);
+        printf("%.2lf %.2lf %.2lf\n", x1, x2, x3);
+    }
+    return 0;
+}

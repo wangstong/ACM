@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+char s[30];
+int get(char c) {
+    for (int i = 1; i <= 26; i++) {
+        if (c == s[i])
+            return i;
+    }
+    return 0;
+}
+
+int main() {
+    int T;
+    cin >> T;
+    for (int i = 1; i <= 26; i++) {
+        cin >> s[i];
+    }
+
+    string s1, s2;
+    while (T--) {
+        cin >> s1 >> s2;
+        if (s1 == s2) {
+            cout << "=" << endl;
+            continue;
+        }
+        int i;
+        for (i = 0; i < int(min(s1.size(), s2.size())); i++) {
+            int x1 = get(s1[i]);
+            int x2 = get(s2[i]);
+            if (x1 > x2) {
+                cout << ">" << endl;
+                break;
+            }
+            else if (x1 < x2) {
+                cout << "<" << endl;
+                break;
+            }
+            else
+                continue;
+        }
+        if (i == int(min(s1.size(), s2.size()))) {
+            if (s1.size() > s2.size())
+                cout << ">" << endl;
+            else
+                cout << "<" << endl;
+        }
+    }
+    return 0;
+}
