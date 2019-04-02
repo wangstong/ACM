@@ -1,0 +1,43 @@
+Description
+
+For security issues, Marjar University has an access control system for each dormitory building.The system requires the students to use their personal identification cards to open the gate if they want to enter the building.
+
+The gate will then remain unlocked for L seconds. For example L = 15, if a student came to the dormitory at 17:00:00 (in the format of HH:MM:SS) and used his card to open the gate. Any other students who come to the dormitory between [17:00:00, 17:00:15) can enter the building without authentication. If there is another student comes to the dorm at 17:00:15 or later, he must take out his card to unlock the gate again.
+
+There are N students need to enter the dormitory. You are given the time they come to the gate. These lazy students will not use their cards unless necessary. Please find out the students who need to do so.
+
+Input
+
+There are multiple test cases. The first line of input contains an integer T indicating the number of test cases. For each test case:
+
+The first line contains two integers N (1 <= N <= 20000) and L (1 <= L <= 3600). The next N lines, each line is a unique time between [00:00:00, 24:00:00) on the same day.
+
+Output
+
+For each test case, output two lines. The first line is the number of students who need to use the card to open the gate. The second line the the index (1-based) of these students in ascending order, separated by a space.
+
+Sample Input
+
+3
+2 1
+12:30:00
+12:30:01
+5 15
+17:00:00
+17:00:15
+17:00:06
+17:01:00
+17:00:14
+3 5
+12:00:09
+12:00:05
+12:00:00
+
+Sample Output
+
+2
+1 2
+3
+1 2 4
+2
+2 3

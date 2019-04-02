@@ -1,0 +1,32 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int a[10005];
+
+int main()
+{
+    int T;
+    cin >> T;
+    while (T--) {
+        int n, m;
+        int sum1 = 0, sum2 = 0, x;
+        cin >> n >> m;
+        for (int i = 1; i <= n; i++) {
+            cin >> x;
+            sum1 += x;
+        }
+        for (int i = 1; i <= m; i++) {
+            cin >> x;
+            sum2 += x;
+        }
+        if (sum1 > sum2)
+            cout << "Calem" << endl;
+        else if (sum1 < sum2)
+            cout << "Serena" << endl;
+        else
+            cout << "Draw" << endl;
+    }
+    return 0;
+}

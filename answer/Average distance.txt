@@ -1,0 +1,56 @@
+#include <iostream>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+
+using namespace std;
+
+struct edge {
+	int v;
+    double w;
+    edge(int v, double w) : v(v), w(w){}
+};
+
+vector<edge> ve[10005];
+int dp[10005], sum[10005];
+double ans;
+int n;
+
+void dfs(int son, int father) {
+    sum[son] = 1;
+    for (int i = 0; i < ve[son].size(); i++) {
+        int grandson = ve[son][i].v;
+        double w = ve[son][i].w;
+        if (grandson == father)
+            continue;
+        dfs(grandson, son);
+        sum[son] += sum[grandson];
+        //dp[son] += dp[grandson] + sum[grandson]*(n-sum[grandson])*w;
+        ans += dp[grandson] + sum[grandson]*(n-sum[grandson])*w;
+    }
+}
+
+int main() {
+    int T;
+    scanf("%d", &T);
+    while (T--) {
+        scanf("%d", &n);
+        for (int i = 0; i <= n; i++)
+            ve[i].clear();
+        memset(dp, 0, sizeof(dp));
+        memset(sum, 0, sizeof(sum));
+
+        for (int i = 0; i < n-1; i++) {
+            int u, v;
+            double w;
+            scanf("%d%d%lf", &u, &v, &w);
+            ve[u].push_back(edge(v, w));
+            ve[v].push_back(edge(u, w));
+        }
+        ans = 0.0;
+        dfs(0, -1);
+        int num = n*(n-1)/2;
+        printf("%lf\n", ans/num);
+    }
+    return 0;
+}

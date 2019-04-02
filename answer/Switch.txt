@@ -1,0 +1,36 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int a[10005];
+
+int main()
+{
+    int N;
+    while (cin >> N) {
+        for (int i = 1; i <= N; i++) {
+            cin >> a[i];
+        }
+        int num1 = 0, num2 = 0;
+        for (int i = 1; i <= N; i++) {
+            if (i % 2 == 1 && a[i] == 0) {
+                num1++;
+            }
+            else if (i % 2 == 0 && a[i] == 1) {
+                num1++;
+            }
+        }
+        for (int i = 1; i <= N; i++) {
+            if (i % 2 == 1 && a[i] == 1) {
+                num2++;
+            }
+            else if (i % 2 == 0 && a[i] == 0) {
+                num2++;
+            }
+        }
+        cout << min(num1, num2) << endl;
+    }
+
+    return 0;
+}
