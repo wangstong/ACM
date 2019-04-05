@@ -1,0 +1,55 @@
+#include <iostream>
+#include <cstdio>
+#include <vector>
+#include <cstring>
+
+using namespace std;
+const int Max = 1500;
+
+vector<vector<int> > Bmap;
+int n, m, k, nm;
+int mark[Max];  // 男生匹配哪个女生
+bool flag[Max];  // 男生是否匹配过
+
+bool dfs(int pos) {
+    int i, pre, tp;
+    for(i = 0; i < Bmap[pos].size(); i++) {
+        tp = Bmap[pos][i];
+        if(!flag[tp]) {
+            flag[tp] = true;
+            pre = mark[tp];
+            mark[tp] = pos;
+            if (pre == -1 || dfs(pre))
+                return true;
+            mark[tp] = pre;
+        }
+    }
+    return false;
+}
+
+inline int Max_Match() {
+    int mmax = 0, i;
+    for(i = 1; i <= m; i++) {
+        memset(flag, 0, sizeof(flag));
+        if(dfs(i))
+            mmax++;
+    }
+    return mmax;
+}
+
+int main() {
+    int i, j, id, id2;
+    while(scanf("%d", &k) == 1 && k) {
+        scanf("%d%d", &m, &n);
+        nm = n + m;
+        Bmap.clear();
+        Bmap.resize(nm + 10);
+        memset(mark, -1, sizeof(mark));
+        for(j = 0; j < k; j++) {
+            scanf("%d %d", &id, &id2);
+            id2 += m;
+            Bmap[id].push_back(id2);
+        }
+        printf("%d\n", Max_Match());
+    }
+    return 0;

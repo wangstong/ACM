@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int dp[10005], a[10005];
+
+int main () {
+    //freopen("input.txt", "r", stdin);
+    int n;
+    while (cin >> n && n) {
+        for (int i = 1; i <= n; i++) {
+            scanf("%d", &a[i]);
+        }
+
+        int first = 1, last = 1, Max, flag;
+        dp[1] = Max = a[1];
+        for (int i = 1; i <= n; i++) {
+            if (dp[i-1]+a[i] > a[i]) {
+                dp[i] = dp[i-1] + a[i];
+            }
+            else {
+                dp[i] = a[i];
+                flag = i;
+            }
+            if (dp[i] > Max) {
+                Max = dp[i];
+                first = flag;
+                last = i;
+            }
+        }
+        if (Max >= 0)
+            cout << Max << " " << a[first] << " " << a[last] << endl;
+        else
+            cout << 0 << " " << a[1] << " " << a[n] << endl;
+    }
+    return 0;
+}
+

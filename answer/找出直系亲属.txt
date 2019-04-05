@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+
+#define inf 1e6
+
+using namespace std;
+
+int bmap[100][100];
+int n, m;
+
+void Floyd() {
+   for(int k = 1 ; k <= 100 ; k++) {
+        for(int i = 1 ; i <= 100 ; i++) {
+            for(int j = 1 ; j <= 100 ; j++) {
+                if(bmap[i][j] > bmap[i][k] + bmap[k][j]) {
+                    bmap[i][j] = bmap[i][k] + bmap[k][j];
+                }
+            }
+        }
+   }
+}
+
+int main () {
+    int n ,m;
+    while(cin >> n >> m && (n || m)) {
+        for(int i = 1 ; i <= 100 ; i++) {
+            for(int j = 1 ; j <= 100 ; j++) {
+                if (i == j)
+                    bmap[i][j] = 0;
+                bmap[i][j] = inf;
+            }
+        }
+        for (int i = 1 ;i <= n ;i ++) {
+            string s;
+            cin >> s;
+            bmap[s[0]][s[1]] = bmap[s[0]][s[2]] = 1;
+        }
+        Floyd();
+        for (int i = 1; i <= m ; i++) {
+            string s;
+            cin >> s;
+            int x = s[0], y = s[1];
+            int dis = min(bmap[x][y] , bmap[y][x]);
+            if (dis == 0 || dis == inf) {
+                puts("-");
+                continue;
+            }
+            if (dis == 1) {
+                if(bmap[x][y] == 1)
+                    puts("child");
+                else
+                    puts("parent");
+            }
+            else {
+                if(bmap[x][y] != inf) {
+                    dis -= 2;
+                    for(int j = 1; j <= dis; j++)
+                        printf("great-");
+                    puts("grandchild");
+                }
+                else {
+                    dis -= 2;
+                    for(int j = 1; j <= dis; j++)
+                        printf("great-");
+                    puts("grandparent");
+                }
+            }
+        }
+   }
+   return 0;
+}
+

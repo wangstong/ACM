@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+    //freopen("input.txt", "r", stdin);
+    int t, kase = 1;
+    cin >> t;
+    while (t--) {
+        string url, protocol, host, port, path;
+        cin >> url;
+
+        int i;
+        for (i = 0; i < url.length(); i++) {
+            if (url[i] == ':')
+                break;
+            protocol += url[i];
+        }
+        for (i += 3; i < url.length(); i++) {
+            if (url[i] == ':' || url[i] == '/')
+                break;
+            host += url[i];
+        }
+        if (url[i] == ':') {
+            for (i += 1; i < url.length(); i++) {
+                if (url[i] == '/')
+                    break;
+                port += url[i];
+            }
+        }
+        for (i += 1; i < url.length(); i++) {
+            path += url[i];
+        }
+
+        if (port.empty())
+            port = "<default>";
+        if (path.empty())
+            path = "<default>";
+
+        cout << "URL #" << kase++ << endl;
+        cout << "Protocol = " << protocol << endl;
+        cout << "Host     = " << host << endl;
+        cout << "Port     = " << port << endl;
+        cout << "Path     = " << path << endl << endl;
+    }
+    return 0;
+}

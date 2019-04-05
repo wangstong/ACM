@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    return gcd(b, a%b);
+}
+
+int main() {
+    string s;
+    int i, n, m, t;
+    cin >> t;
+    while (t--) {
+        cin >> s;
+        int s1, s2;
+        s1 = s2 = n = m = 0;
+        i = 2;
+        while (s[i] != '(' && i < s.length()) {
+            s1 = s1*10 + s[i] - '0';
+            i++;
+            n++;
+        }
+        i++;
+        if (i < s.length()) {
+            while (s[i] != ')' && i < s.length()) {
+                s2 = s2*10 + s[i] - '0';
+                i++;
+                m++;
+            }
+        }
+        int k;
+        if (m) {
+            s2 = s2 + (pow(10.0,m/1.0)-1)*s1;
+            s1 = pow(10.0,n/1.0)*(pow(10.0,m/1.0)-1);
+            k = gcd(s2, s1);
+            cout << s2/k << '/' << s1/k << endl;
+        }
+        else {
+            s2 = pow(10.0,n/1.0);
+            k = gcd(s1,s2);
+            cout << s1/k << '/' << s2/k << endl;
+        }
+    }
+    return 0;
+}
