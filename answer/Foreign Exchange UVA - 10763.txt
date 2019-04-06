@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+map<pair<int, int>, int> ex;
+
+int main() {
+    //freopen("input.txt", "r", stdin);
+    int n;
+    while (cin >> n && n) {
+        ex.clear();
+        int a, b;
+        while (n--) {
+            scanf("%d%d", &a, &b);
+            pair<int, int> ex1 = make_pair(a, b);
+            pair<int, int> ex2 = make_pair(b, a);
+            if (ex[ex2]) {
+                ex[ex2]--;
+            }
+            else {
+                ex[ex1]++;
+            }
+            if (!ex[ex2])
+                ex.erase(ex2);
+        }
+        printf("%s\n", ex.size() ? "NO" : "YES");
+    }
+    return 0;
+}

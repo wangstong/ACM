@@ -1,0 +1,58 @@
+#include bitsstdc++.h
+
+using namespace std;
+
+struct point {
+    double x, y;
+};
+
+point ps[1005];
+
+int main() {
+    freopen(input.txt, r, stdin);
+    int t;
+    cin  t;
+    while (t--) {
+        int n;
+        cin  n;
+
+        double mid = 0.0, x, y;
+        for (int i = 1; i = n; i++) {
+            cin  x  y;
+            ps[i].x = x;
+            ps[i].y = y;
+            mid += x;
+        }
+        mid = n;
+        cout  mid  mid  endl;
+
+        bool flag = true;
+        for (int i = 1; i = n; i++) {
+            if (mid  ps[i].x) {
+                x = mid + (mid-ps[i].x);
+                y = ps[i].y;
+            }
+            else if (mid == ps[i].x) {
+                x = ps[i].x;
+                y = ps[i].y;
+            }
+            else {
+                x = mid-(ps[i].x-mid);
+                y = ps[i].y;
+            }
+            point p = {x, y};
+
+            int j;
+            for (j = 1; j = n; j++) {
+                if (p.x == ps[j].x && p.y == ps[j].y)
+                    break;
+            }
+            if (j == n+1) {
+                flag = false;
+                break;
+            }
+        }
+        printf(%sn, flag  YES  NO);
+    }
+    return 0;
+}

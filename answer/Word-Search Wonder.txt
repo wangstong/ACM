@@ -1,0 +1,135 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int mat[105][105];
+string s;
+
+bool f1(int x, int y) {
+    for (int j = 0; j < s.size(); j++) {
+        if (s[j] != mat[x][y-j])
+            return false;
+    }
+    return true;
+}
+bool f2(int x, int y) {
+    for (int j = 0; j < s.size(); j++) {
+        if (s[j] != mat[x][y+j])
+            return false;
+    }
+    return true;
+}
+bool f3(int x, int y) {
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] != mat[x-i][y])
+            return false;
+    }
+    return true;
+}
+bool f4(int x, int y) {
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] != mat[x+i][y])
+            return false;
+    }
+    return true;
+}
+bool f5(int x, int y) {
+    for (int k = 0; k < s.size(); k++) {
+        if (s[k] != mat[x-k][y-k])
+            return false;
+    }
+    return true;
+}
+bool f6(int x, int y) {
+    for (int k = 0; k < s.size(); k++) {
+        if (s[k] != mat[x+k][y+k])
+            return false;
+    }
+    return true;
+}
+bool f7(int x, int y) {
+    for (int k = 0; k < s.size(); k++) {
+        if (s[k] != mat[x-k][y+k])
+            return false;
+    }
+    return true;
+}
+bool f8(int x, int y) {
+    for (int k = 0; k < s.size(); k++) {
+        if (s[k] != mat[x+k][y-k])
+            return false;
+    }
+    return true;
+}
+
+int main() {
+    //freopen("input.txt", "r", stdin);
+    int N;
+    cin >> N;
+    for (int t = 0; t < N; t++) {
+		if (t)
+			puts("");
+        int n;
+        char ch;
+        cin >> n;
+        for (int i = 0; i < n; i++) {
+            cin >> s;
+            for (int j = 0; j < n; j++) {
+                mat[i][j] = s[j];
+            }
+        }
+
+        while (cin >> s && s != "0") {
+            bool flag = false;
+            for (int i = 0; i < n && (!flag); i++) {
+                for (int j = 0; j < n; j++) {
+                    if (mat[i][j] == s[0]) {
+                        if (f1(i, j)) {
+                            flag = true;
+                            printf("%d,%d %d,%d\n", i+1, j+1, i+1, j-s.size()+2);
+                            break;
+                        }
+                        if (f2(i, j)) {
+                            flag = true;
+                            printf("%d,%d %d,%d\n", i+1, j+1, i+1, j+s.size());
+                            break;
+                        }
+                        if (f3(i, j)) {
+                            flag = true;
+                            printf("%d,%d %d,%d\n", i+1, j+1, i-s.size()+2, j+1);
+                            break;
+                        }
+                        if (f4(i, j)) {
+                            flag = true;
+                            printf("%d,%d %d,%d\n", i+1, j+1, i+s.size(), j+1);
+                            break;
+                        }
+                        if (f5(i, j)) {
+                            flag = true;
+                            printf("%d,%d %d,%d\n", i+1, j+1, i-s.size()+2, j-s.size()+2);
+                            break;
+                        }
+                        if (f6(i, j)) {
+                            flag = true;
+                            printf("%d,%d %d,%d\n", i+1, j+1, i+s.size(), j+s.size());
+                            break;
+                        }
+                        if (f7(i, j)) {
+                            flag = true;
+                            printf("%d,%d %d,%d\n", i+1, j+1, i-s.size()+2, j+s.size());
+                            break;
+                        }
+                        if (f8(i, j)) {
+                            flag = true;
+                            printf("%d,%d %d,%d\n", i+1, j+1, i+s.size(), j-s.size()+2);
+                            break;
+                        }
+                    }
+                }
+            }
+            if (!flag)
+                puts("Not found");
+        }
+    }
+    return 0;
+}

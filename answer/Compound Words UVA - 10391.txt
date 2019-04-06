@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+set<string> Set;
+
+int main() {
+    //freopen("input.txt", "r", stdin);
+    string s;
+    while (cin >> s) {
+        Set.insert(s);
+    }
+    for (set<string>::iterator iter = Set.begin(); iter != Set.end(); iter++) {
+        s = *iter;
+        for (int i = 0; i < s.size()-1; i++) {
+            string sub1 = s.substr(0, i+1);
+            string sub2 = s.substr(i+1, s.size()-(i+1));
+            if (Set.find(sub1) != Set.end() && Set.find(sub2) != Set.end()) {
+                cout << s << endl;
+                break;
+            }
+        }
+    }
+    return 0;
+}
