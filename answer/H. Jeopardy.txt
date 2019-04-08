@@ -1,0 +1,35 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+int mat[505][505];
+vector<int> ve;
+
+int main() {
+    int n;
+    while (cin >> n) {
+        memset(mat, 0, sizeof(mat));
+        ve.clear();
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                cin >> mat[i][j];
+            }
+        }
+        for (int i = 1; i <= n; i++) {
+            int MIN = 10000;
+            for (int j = 1; j <= n; j++) {
+                if (MIN > mat[i][j]) {
+                    MIN = mat[i][j];
+                }
+            }
+            ve.push_back(MIN);
+        }
+        sort(ve.begin(), ve.end());
+        cout << ve[n-1] << endl;
+    }
+    return 0;
+}

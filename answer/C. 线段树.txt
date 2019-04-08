@@ -1,0 +1,48 @@
+﻿#include<bits/stdc++.h>
+
+using namespace std;
+
+long long ans;
+
+void dfs(long long l, long long r) {
+    if (r > ans)
+        return;
+    if (r > 2e9)
+        return;
+	if (l < 1)
+        return;
+    if (l == 1 || l == r) {
+        ans = min(ans, r);
+        return;
+    }
+    long long len = r-l+1;
+    if (l < len)
+        return;
+    if (r+len >= l)
+        dfs(l, r+len);
+    if (r+len >= l)
+        dfs(l, r+len-1);
+    if (l-len >= 1)
+        dfs(l-len, r);
+    if (l-len-1 >= 1)
+        dfs(l-len-1, r);
+    return;
+}
+
+int main() {
+    int T;
+    scanf("%d", &T);
+    while (T--) {
+        long long l, r;
+        scanf("%lld%lld", &l, &r);
+        ans = 1e10;
+        dfs(l, r);
+        if (ans == 1e10) {
+            puts("-1");
+        }
+        else {
+            printf("%lld\n", ans);
+        }
+    }
+    return 0;
+}
