@@ -1,0 +1,34 @@
+﻿#include<bits/stdc++.h>
+
+using namespace std;
+
+const int mod = 1e9+7;
+long long a[500005];
+
+int main() {
+    int n;
+    cin >> n;
+    long long ans = 0;
+    long long com;
+    for (int i = 1; i <= n; i++) {
+        scanf("%d", &a[i]);
+        if (i == 1)
+            com = a[i];
+        else
+            com = __gcd(com, a[i]);
+    }
+    for (int i = 1; i <= n; i++) {
+        long long pre = a[i];
+        for (int j = i; j <= n; j++) {
+            pre = __gcd(pre, a[j]);
+            ans = (ans+pre) % mod;
+
+            if (pre == com) {
+                ans = (ans + (n-j)*com) % mod;
+                break;
+            }
+        }
+    }
+    cout << ans << endl;
+    return 0;
+}
