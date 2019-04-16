@@ -1,0 +1,26 @@
+What day is that day?
+Time Limit: 2 Seconds      Memory Limit: 65536 KB
+
+It's Saturday today, what day is it after 11 + 22 + 33 + ... + NN days?
+Input
+
+There are multiple test cases. The first line of input contains an integer T indicating the number of test cases. For each test case:
+
+There is only one line containing one integer N (1 <= N <= 1000000000).
+Output
+
+For each test case, output one string indicating the day of week.
+Sample Input
+
+2
+1
+2
+
+Sample Output
+
+Sunday
+Thursday
+
+Hint
+
+A week consists of Sunday, Monday, Tuesday, Wednesday, Thursday, Friday and Saturday. 
