@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+char c;
+const int con[] = {16,8,4,2,1};
+string code = " ABCDEFGHIJKLMNOPQRSTUVWXYZ',-.?", s, s1;
+
+int main() {
+    while (true) {
+        s = s1 = "";
+        while ((c = getchar())!='*') {
+            if (c == '#') return 0;
+            s += c;
+        }
+        int num = 0; bool flag = false;
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == ' ') num++, flag = true;
+            else if (s[i] != ' ' && flag == true) {
+                flag = false;
+                if (num%2==0) s1 += '1';
+                else s1 += '0';
+                num = 0;
+            }
+        }
+        while (s1.size()%5!=0)
+            s1 += '0';
+
+        for (int i = 0; i < s1.size(); i += 5) {
+            string s2 = s1.substr(i, i+5);
+            int sum = 0;
+            for (int j = 0; j < 5; j++) {
+                if (s2[j] == '1') sum += con[j];
+            }
+            cout << code[sum];
+        }
+        cout << endl;
+        //cout << s1 << endl;
+    }
+    return 0;
+}

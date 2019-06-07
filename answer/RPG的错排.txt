@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+long long n, a[30], C[35][35], D[35];
+
+int main() {
+    C[0][0] = 1;
+    for (int i = 1; i <= 25; i++) {
+        C[i][0] = 1;
+        for (int j = 1; j <= i; j++) {
+            C[i][j] = C[i-1][j]+C[i-1][j-1];
+        }
+    }
+    D[1] = 0, D[2] = 1;
+    for (int i = 3; i <= 25; i++) {
+        D[i] = (i-1)*(D[i-1]+D[i-2]);
+    }
+
+    for (int i = 1; i <= 25; i++) {
+        a[i] = 1;
+        for (int j = 1; j <= i/2; j++) {
+            a[i] += C[i][j]*D[j];
+        }
+    }
+
+    while (cin >> n && n) {
+        cout << a[n] << endl;
+    }
+    return 0;
+}
