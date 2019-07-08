@@ -1,0 +1,86 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+queue<string> cmd[1005];
+int var[26];
+int n, t1, t2, t3, t4, t5, q;
+bool flag;
+deque<int> dq;  // 等待队列
+queue<int> qu;  // 阻塞队列
+
+void run(int pid) {
+    int time = q;
+    while (time > 0) {
+        string s = cmd[pid].front();
+        if (s[2] == '=') {
+            int temp = s[4] - '0';
+            if (isdigit(s[5])) {
+                temp = temp*10 + s[5]-'0';
+            }
+            var[s[0]-'a'] = temp;
+            time -= t1;
+        }
+        else if (s[2] == 'i') {
+            printf("%d: %d\n", pid, var[s[6]-'a']);
+            time -= t2;
+        }
+        else if (s[2] == 'c') {
+            if (flag) {
+                qu.push(pid);
+                return;
+            }
+            flag = true;
+            time -= t3;
+        }
+        else if (s[2] == 'l') {
+            flag = false;
+            if (!qu.empty()) {
+                int pid2 = qu.front();
+                qu.pop();
+                dq.push_front(pid2);
+            }
+            time -= t4;
+        }
+        else if (s[2] == 'd') {
+            return;
+        }
+        cmd[pid].pop();
+    }
+    dq.push_back(pid);
+}
+
+void init() {
+    memset(var, 0, sizeof(var));
+    for (int i = 1; i <= n; i++) {
+        while (!cmd[i].empty()) cmd[i].pop();
+    }
+}
+
+int main() {
+    //freopen("input.txt", "r", stdin);
+    int t;
+    cin >> t;
+    while (t--) {
+        cin >> n >> t1 >> t2 >> t3 >> t4 >> t5 >> q;
+        init();
+        getchar();
+        for (int i = 1; i <= n;) {  // n个程序
+            string s;
+            getline(cin, s);
+            cmd[i].push(s);
+            if (s == "end") {
+                dq.push_back(i);
+                i++;
+                continue;
+            }
+        }
+        flag = false;
+        while (!dq.empty()) {
+            int pid = dq.front();
+            dq.pop_front();
+            run(pid);
+        }
+        if (t) cout << endl;
+    }
+    return 0;
+}

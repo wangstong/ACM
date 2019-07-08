@@ -1,0 +1,23 @@
+/*
+需要应用的公式：
+1*2*3+2*3*4+3*4*5+...+n*(n+1)(n+2)= (n*(n+1)*(n+2)*(n+3))/4；
+(a + b) % p = (a % p + b % p) % p；
+(a *b) % p = (a % p * b % p) % p；
+(a/b)%p=(a%(b*p))/b；
+*/
+
+#include <bits/stdc++.h>
+
+using namespace std;
+int main() {
+    string num;
+    while (cin >> num) {
+        long long n = 0;
+        for (int i = 0; i < num.size(); i++) {
+            n = (n*10 + num[i]-'0')%9999;
+        }
+        long long sum = n*(n+1)*(n+2)*(n+3)/4%9999;
+        cout << sum << endl;
+    }
+    return 0;
+}

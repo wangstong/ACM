@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+typedef long long ll;
+struct Arr {
+    ll size;
+    map<ll,ll> dim;
+};
+map<string,Arr> mp;
+string cmd;
+
+bool declare() {
+    for (auto &r : cmd)
+        if (r == '[' || r == ']') r = ' ';
+    istringstream in(cmd);
+    string name;
+    ll size;
+    in >> name >> size;
+    mp[name].size = size;
+    return size >= 0;
+}
+bool get(stack<string> &st, ll &num) {
+    while (!st.empty()) {
+        if (num >= mp[st.top()].size) return false;
+        if (!mp[st.top()].dim.count(num)) return false;
+        num = mp[st.top()].dim[num];
+        st.pop();
+    }
+    return true;
+}
+bool solve() {
+    for (auto &r : cmd)
+        if (r == '[' || r == ']' || r == '=') r = ' ';
+    stack<string> stl, str;
+    ll numl, numr;
+    istringstream in(cmd);
+
+    string s, now;
+    in >> s;
+    while (in >> now && now[0] > '9') stl.push(now);
+    istringstream inl(now); inl >> numl;
+    while (in >> now && now[0] > '9') str.push(now);
+    istringstream inr(now); inr >> numr;
+    if (!get(stl, numl) || !get(str, numr)) return false;
+    if (numl >= mp[s].size) return false;
+    mp[s].dim[numl] = numr;
+    return true;
+}
+int main() {
+    //freopen("input.txt", "r", stdin);
+    while (cin >> cmd && cmd[0] != '.') {
+        ll bug_line = 0, linenum = 0;
+        mp.clear();
+        do {
+            ++linenum;
+            if (bug_line) continue;
+            if (!(cmd.find('=') == string::npos ? declare() : solve())) bug_line = linenum;
+        } while (cin >> cmd && cmd[0] != '.');
+        cout << bug_line << endl;
+    }
+    return 0;
+}

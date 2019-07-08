@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct Book {
+    string author;
+    string name;
+    Book() {}
+    Book(string a, string n) {
+        author = a;
+        name = n;
+    }
+};
+struct cmp {
+    bool operator() (const Book a, const Book b) {
+        if (a.author != b.author)
+            return a.author < b.author;
+        return a.name < b.name;
+    }
+};
+map<Book,int,cmp> mp;
+
+int main() {
+    //freopen("input.txt", "r", stdin);
+    string cmd;
+    while (getline(cin,cmd) && cmd != "END") {
+        int i = cmd.find("by");
+        Book book = Book(cmd.substr(i+3),cmd.substr(0, i-1));
+        mp[book] = 1;
+    }
+/*
+    for (auto iter = mp.begin(); iter != mp.end(); iter++) {
+        cout << "作者：" << (iter->first).author << " " << "书名：" << (iter->first).name << endl;
+    }
+*/
+    while (cin >> cmd && cmd != "END") {
+        if (cmd == "BORROW") {
+            getchar();
+            string name;
+            getline(cin,name);
+            for (auto iter = mp.begin(); iter != mp.end(); iter++) {
+                if ((iter->first).name == name) iter->second = 0;
+            }
+        }
+        else if (cmd == "RETURN") {
+            getchar();
+            string name;
+            getline(cin,name);
+            for (auto iter = mp.begin(); iter != mp.end(); iter++) {
+                if ((iter->first).name == name) iter->second = 2;
+            }
+        }
+        else if (cmd == "SHELVE") {
+            for (auto iter = mp.begin(); iter != mp.end(); iter++) {
+                if (iter->second == 2) {
+                    if (iter == mp.begin())
+                        cout << "Put " << (iter->first).name << " first" << endl;
+                    else {
+                        queue<Book> q;
+                        for (auto iter1 = mp.begin(); iter1 != iter; iter1++) {
+                            if (iter1->second == 1)
+                                q.push(iter1->first);
+                        }
+                        if (!q.size()) cout << "Put " << (iter->first).name << " first" << endl;
+                        else cout << "Put " << (iter->first).name << " after " << q.back().name << endl;
+                    }
+                    iter->second = 1;
+                }
+            }
+            cout << "END" << endl;
+        }
+    }
+    return 0;
+}
