@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+    //freopen("input.txt", "r", stdin);
+    string s;
+    while (cin >> s) {
+        int cur = 0, last = 0;
+        list<char> li;
+
+        for (int i = 0; i < s.size(); i++) {
+            char ch = s[i];
+            if (ch == '[') cur = 0;
+            else if (ch == ']') cur = last;
+            else {
+                if (cur == last) li.push_back(ch);
+                else if (cur == 0) li.push_front(ch);
+                else {
+                    auto iter = begin(li);
+                    advance(iter, cur);
+                    li.insert(iter, ch);
+                }
+                cur++, last++;
+            }
+        }
+        for (auto r : li)
+            printf("%c", r);
+        printf("\n");
+    }
+    return 0;
+}
