@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int inf = 0x3f3f3f3f;
+int maps[25][25], ans[25][25][25];
+int m, n, k;
+int dir[4][2] = {1,0,-1,0,0,1,0,-1};
+
+void bfs(int x, int y, int k_n, int cur) {
+    ans[x][y][k_n] = cur;
+    if (x == m && y == n) return;
+    for (int i = 0; i < 4; i++) {
+        int next_x = x + dir[i][0];
+        int next_y = y + dir[i][1];
+        if (next_x >= 1 && next_x <= m && next_y >= 1 && next_y <= n) {
+            int next_k;
+            if (maps[next_x][next_y]) next_k = k_n + 1;
+            else next_k = 0;
+            if (next_k <= k && (ans[next_x][next_y][next_k] == -1 || ans[next_x][next_y][next_k] > cur+1))
+                bfs(next_x, next_y, next_k, cur+1);
+        }
+    }
+}
+int main() {
+    //freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+    int t;
+    scanf("%d",&t);
+    while (t--) {
+        memset(maps,0,sizeof(maps));
+        memset(ans,-1,sizeof(ans));
+        scanf("%d%d%d",&m,&n,&k);
+        for (int i = 1; i <= m; i++)
+            for (int j = 1; j <= n; j++)
+                scanf("%d",&maps[i][j]);
+
+        bfs(1,1,0,0);
+        int res = inf;
+        for (int i = 0; i <= k; i++) {
+            if (ans[m][n][i] >= 0) res = min(res,ans[m][n][i]);
+        }
+        if (res == inf) puts("-1");
+        else printf("%d\n",res);
+    }
+    return 0;
+}

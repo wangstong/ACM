@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    scanf("%d",&t);
+    getchar();
+    while (t--) {
+        string s;
+        getline(cin,s);
+        stack<char> st;
+        st.push('0');
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == '(' || s[i] == '[') st.push(s[i]);
+            else if (s[i] == ')') {
+                if (st.top() == '(') st.pop();
+                else st.push(s[i]);
+            }
+            else if (s[i] == ']') {
+                if (st.top() == '[') st.pop();
+                else st.push(s[i]);
+            }
+        }
+        if (st.top() == '0') puts("Yes");
+        else puts("No");
+    }
+    return 0;
+}

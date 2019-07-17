@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n, kase = 0;
+    while(cin >> n && n) {
+        cout << "S-Tree #" << ++kase << ":" << endl;
+        string name, val;
+        for (int i = 1; i <= n; i++) cin >> name;
+        cin >> val;
+
+        int q; cin >> q;
+        int num = pow(2,n);
+        while (q--) {
+            int pos = 1;
+            string fin; cin >> fin;
+            for (int i = 0; i < fin.size(); i++) {
+                if (fin[i] == '0') pos = pos*2;
+                else if (fin[i] == '1') pos = pos*2+1;
+            }
+            cout << val[pos-num];
+        }
+        printf("\n\n");
+    }
+    return 0;
+}

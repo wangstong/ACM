@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+int maps[10][10];
+int dir[8][2] {-2,1, -1,2, 1,2, 2,1, 2,-1, 1,-2, -1,-2, -2,-1};
+int ans_x, ans_y;
+void bfs(int x, int y, int cur) {
+    maps[x][y] = cur;
+    if (x == ans_x && y == ans_y) return;
+    for (int i = 0; i < 8; i++) {
+        int newx = x+dir[i][0];
+        int newy = y+dir[i][1];
+        if (newx >= 1 && newx <= 8 && newy >= 1 && newy <= 8) {
+            if (maps[newx][newy] == 0 || maps[newx][newy] > cur+1)
+                bfs(newx,newy,cur+1);
+        }
+    }
+}
+int main() {
+    string pos1, pos2;
+    while (cin >> pos1 >> pos2) {
+        memset(maps,0,sizeof(maps));
+        ans_y = pos2[0]-'a'+1;
+        ans_x = pos2[1]-'0';
+        bfs(pos1[1]-'0',pos1[0]-'a'+1,0);
+        cout << "To get from " << pos1 << " to " << pos2 <<
+        " takes " << maps[ans_x][ans_y] << " knight moves." << endl;
+    }
+    return 0;
+}
