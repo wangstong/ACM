@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const int maxn = 100005;
+set<ll> ban;
+bool ok;
+ll a, b, k, deep;
+ll ans[maxn], l[maxn];
+ll getfirst(ll a, ll b) { return b/a + 1; }
+bool better(ll d) {
+    for (int i = d; i >= 0; i--) {
+        if (ans[i] != l[i]) {
+            return ans[i] == -1 || l[i] < ans[i];
+        }
+    }
+    return false;
+}
+void dfs(ll cur, ll from, ll a, ll b) {
+    if (cur == deep) {
+        if (b%a || ban.count(b/a)) return;
+        l[cur] = b;
+        if (better(cur)) memcpy(ans,l,sizeof(ll)*(cur+1));
+        ok = true;
+        return;
+    }
+    from = max(from, getfirst(a,b));
+    for (int i = from;; i++) {
+        if (a*i >= b*(deep-cur+1)) return;
+        if (ban.count(i)) continue;
+        l[cur] = i;
+        ll a1 = a*i-b, b1 = b*i;
+        ll temp = __gcd(a1,b1);
+        dfs(cur+1,i+1,a1/temp,b1/temp);
+    }
+    return;
+}
+int main() {
+    //freopen("output.txt","w",stdout);
+    int t; scanf("%d",&t);
+    int kase = 0;
+    while (t--) {
+        ban.clear();
+        scanf("%lld%lld%lld",&a,&b,&k);
+        while (k--) {
+            ll x; scanf("%lld",&x);
+            ban.insert(x);
+        }
+        ok = false;
+        for (deep = 1;; deep++) {
+            memset(ans,-1,sizeof(ans));
+            dfs(0,getfirst(a,b),a,b);
+            if (ok) break;
+        }
+        printf("Case %d: %lld/%lld=",++kase,a,b);
+        printf("1/%lld",ans[0]);
+        for (int i = 1; i <= deep; i++) printf("+1/%lld",ans[i]);
+        printf("\n");
+    }
+    return 0;
+}

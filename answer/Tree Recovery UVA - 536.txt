@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+string preorder, midorder;
+
+void dfs(int l1, int r1, int l2, int r2) {
+    int mid = midorder.find(preorder[l1]);
+    if (mid > l2) dfs(l1+1,l1+mid-l2,l2,mid-1);
+    if (mid < r2) dfs(l1+mid-l2+1,r1,mid+1,r2);
+    cout << preorder[l1];
+}
+int main() {
+    //freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+    while (cin >> preorder >> midorder) {
+        dfs(0,preorder.size()-1,0,midorder.size()-1);
+        cout << endl;
+    }
+    return 0;
+}

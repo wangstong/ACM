@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct pile {
+    stack<string> st;
+    int num;
+    pile(string card, int num) : num(num) {
+        st.push(card);
+    }
+};
+list<pile> piles;
+int main() {
+    //freopen("input.txt", "r", stdin);
+    while (true) {
+        string s; cin >> s;
+        if (s == "#") break;
+        piles.clear();
+        piles.push_back(pile(s,1));
+        for (int i = 2; i <= 52; i++) {
+            string s; cin >> s;
+            piles.push_back(pile(s,1));
+        }
+
+        while (true) {
+            int i = 1; bool flag = true;
+            for (auto iter = piles.begin(); iter != piles.end(); iter++, i++) {
+                if (i == 1) continue;
+                else {
+                    if (i > 3) {
+                        auto iter1 = iter; advance(iter1,-3);
+                        string s1 = (*iter).st.top();
+                        string s2 = (*iter1).st.top();
+                        if (s1[0] == s2[0] || s1[1] == s2[1]) {
+                            (*iter1).st.push(s1);
+                            (*iter).st.pop();
+                            (*iter1).num++;
+                            (*iter).num--;
+                            if ((*iter).num == 0)
+                                piles.erase(iter);
+                            flag = false;
+                            break;
+                        }
+                    }
+                    auto iter1 = iter; advance(iter1,-1);
+                    string s1 = (*iter).st.top();
+                    string s2 = (*iter1).st.top();
+                    if (s1[0] == s2[0] || s1[1] == s2[1]) {
+                        (*iter1).st.push(s1);
+                        (*iter).st.pop();
+                        (*iter1).num++;
+                        (*iter).num--;
+                        if ((*iter).num == 0)
+                            piles.erase(iter);
+                        flag = false;
+                        break;
+                    }
+                }
+            }
+            if (flag) break;
+        }
+        cout << piles.size() << " " << ((piles.size()>1) ? "piles":"pile") << " remaining:";
+        int i = 1;
+        for (auto r : piles)
+            cout << " " << r.num;
+        cout << endl;
+    }
+
+    return 0;
+}

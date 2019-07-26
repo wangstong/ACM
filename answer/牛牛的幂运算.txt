@@ -1,26 +1,28 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-
 typedef long long ll;
-const int mod = 1e9+7;
-
-int main() {
-    ll n, ans;
-    scanf("%lld", &n);
-    ans = ((n%mod)*(n%mod)) % mod;
-    ans = ans + ((n%mod)*((n-1) % mod)) % mod;
-    ll t = sqrt(n);
-
-    for (ll ac = 2; ac <= t; ac++) {
-        for (ll c = ac*ac, b = 2; c <= n; c *= ac, b++) {
-            for (ll d = 1; d < b; d++) {
-                if (__gcd(d,b) == 1) {
-                    ans = (ans + ((n / b) * 2) % mod) % mod;  // *2代表ab和cd交换所以*2
-                }
-            }
+const ll mod = 1e9+7;
+ll a, b, c, d;
+void solve() {
+    ll ans = 0; ans = b*d; // 统计当a=c=1的情况
+    for (int i = 1; i < 32; i++) {
+        for (int j = 1; j < 32; j++) {
+            if (__gcd(i,j) != 1) continue;
+            int A = pow(a,1.0/i);
+            while (pow(A,i) <= a) A++;
+            int C = pow(c,1.0/j);
+            while (pow(C,j) <= c) C++;
+            A--, C--;
+            ans = (ans+(min(A-1,C-1)*min(b/j,d/i)))%mod;
         }
     }
-    printf("%lld\n", ans);
+    printf("%lld\n",ans);
+}
+int main() {
+    int t; scanf("%d",&t);
+    while (t--) {
+        scanf("%d%d%d%d",&a,&b,&c,&d);
+        solve();
+    }
     return 0;
 }

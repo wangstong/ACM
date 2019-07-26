@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int maxn = 1005;
+int v, e, t;
+int degree[maxn], pa[maxn];
+vector<int> ve[maxn], odd_num;
+set<int> Set;
+int findset(int x) {
+    if (pa[x] != x) pa[x] = findset(pa[x]);
+    return pa[x];
+}
+void join(int x, int y) {
+    int a = findset(x);
+    int b = findset(y);
+    if (a == b) return;
+    pa[a] = b;
+}
+
+int main() {
+    //freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+    int kase = 0;
+    while (cin >> v >> e >> t && v) {
+        if (e == 0) {
+            printf("Case %d: %d\n", ++kase, 0);
+            continue;
+        }
+        memset(degree,0,sizeof(degree));
+        odd_num.clear();
+        Set.clear();
+        for (int i = 1; i <= v; i++) ve[i].clear();
+        for (int i = 1; i <= v; i++) pa[i] = i;
+        for (int i = 1; i <= e; i++) {
+            int x, y; scanf("%d%d",&x,&y); join(x,y);
+            Set.insert(x); Set.insert(y);
+            degree[x]++, degree[y]++;
+        }
+        for (auto r : Set) ve[findset(r)].push_back(r);
+
+        for (int i = 1; i <= v; i++) {
+            if (ve[i].size() == 0) continue;
+            int odd = 0;
+            for (int j = 0; j < ve[i].size(); j++) {
+                if (degree[ve[i][j]] % 2 == 1) odd++;
+            }
+            odd_num.push_back(odd);
+        }
+
+        int ans = e, odd = odd_num[0];
+        for (int i = 1; i < odd_num.size(); i++) {
+            if (odd > 2 && odd_num[i] > 2) odd = odd+odd_num[i]-2;
+            else if (odd > 2 || odd_num[i] > 2) odd = max(odd,odd_num[i]);
+            else odd = 2;
+            ans++;
+        }
+        if (odd >= 2) odd -= 2;
+        ans += odd/2;
+        printf("Case %d: %d\n", ++kase, ans*t);
+    }
+    return 0;
+}

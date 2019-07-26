@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int maxn = 1005;
+int a[maxn], b[maxn], pos[maxn];
+vector<int> ve[maxn];
+stack<int> st;
+int main() {
+    //freopen("input.txt", "r", stdin);
+    int n;
+    while (cin >> n) {
+        while (!st.empty()) st.pop();
+        for (int i = 1; i <= n; i++) ve[i].clear();
+
+        for (int i = 1; i <= n; i++) {
+            scanf("%d",&a[i]);
+            pos[a[i]] = i;
+        }
+        for (int i = 1; i <= n; i++) scanf("%d",&b[i]);
+
+        st.push(b[1]);
+        for (int i = 2; i <= n; i++) {
+            while (true) {
+                int u = st.top(), v = b[i];
+                if (pos[u]+1 < pos[v] || (pos[u]+1 == pos[v] && u > v) || u == b[1]) {
+                    ve[u].push_back(v);
+                    st.push(v);
+                    break;
+                }
+                else st.pop();
+            }
+        }
+        for (int i = 1; i <= n; i++) {
+            printf("%d:", i);
+            for (auto r : ve[i])
+                printf(" %d",r);
+            printf("\n");
+        }
+    }
+    return 0;
+}
