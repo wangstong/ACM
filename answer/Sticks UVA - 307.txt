@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+vector<int> ve;
+int now, k, n;
+bool vis[10005];
+bool cmp(int a, int b) { return a > b; }
+bool dfs(int len, int s, int j) {
+    if (len == now) {
+        s++;
+        j = len = 0;
+    }
+    if (s == k) return true;
+    for (int i = j+1; i < n; i++) {
+        if (vis[i] || len+ve[i] > now || (ve[i] == ve[i-1] && !vis[i-1]))
+            continue;
+        vis[i] = true;
+        if (dfs(len+ve[i],s,i))
+            return true;
+        vis[i] = false;
+        if (len == 0)
+            return false;
+    }
+    return false;;
+}
+int main() {
+    //freopen("input.txt","r",stdin);
+    //freopen("output.txt","w",stdout);
+    while (cin >> n && n) {
+        int sum = 0;
+        ve.clear();
+        for (int i = 1; i <= n; i++) {
+            int x; scanf("%d",&x);
+            ve.push_back(x);
+            sum += x;
+        }
+        sort(ve.begin(),ve.end(),cmp);
+        for (now = ve[0]; now <= sum/2; now++) {
+            memset(vis,0,sizeof(vis));
+            if (sum % now != 0) continue;
+            k = sum/now;
+            vis[0] = true;
+            if (dfs(ve[0],0,0)) {
+                printf("%d\n",now);
+                break;
+            }
+        }
+        if (now > sum/2)
+            printf("%d\n",sum);
+    }
+    return 0;
+}

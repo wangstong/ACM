@@ -1,0 +1,85 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const int maxn = 100005;
+ll a[maxn], b[maxn], c[maxn], sumb[maxn], sumc[maxn];
+int n, m;
+ll lowbit(ll x){
+    return x&(-x);
+}
+void addb(ll pos, ll val) {
+    while (pos <= n) {
+        sumb[pos] += val;
+        pos += lowbit(pos);
+    }
+}
+ll get_sumb(ll pos) {
+    ll ans = 0;
+    while (pos) {
+        ans += sumb[pos];
+        pos -= lowbit(pos);
+    }
+    return ans;
+}
+void addc(ll pos, ll val) {
+    while (pos <= n) {
+        sumc[pos] += val;
+        pos += lowbit(pos);
+    }
+}
+ll get_sumc(ll pos) {
+    ll ans = 0;
+    while (pos) {
+        ans += sumc[pos];
+        pos -= lowbit(pos);
+    }
+    return ans;
+}
+
+int main() {
+	int t; scanf("%d",&t);
+	while (t--) {
+        memset(sumb,0,sizeof(sumb));
+        memset(sumc,0,sizeof(sumc));
+        scanf("%d%d",&n,&m);
+        for (int i = 1; i <= n; i++) scanf("%d",&a[i]);
+        a[0] = 0;
+        for (int i = 1; i <= n; i++) {
+            b[i] = a[i]-a[i-1];
+            addb(i,b[i]);
+        }
+        for (int i = 1; i <= n; i++) {
+            c[i] = (b[i]>0) ? b[i] : 0;
+            addc(i,c[i]);
+        }
+        while (m--) {
+            int op; scanf("%d",&op);
+            if (op == 1) {
+                ll l, r, k;
+                scanf("%lld%lld%lld",&l,&r,&k);
+                ll add1, add2;
+                if (b[l] < 0) {
+                    add1 = b[l]+k;
+                    add1 = max(0LL,add1);
+                }
+                else add1 = k;
+                if (b[r+1] > 0) add2 = min(b[r+1],k);
+                else add2 = 0;
+
+                b[l] += k, b[r+1] -= k;
+                addb(l,k);
+                addb(r+1,-k);
+                addc(l,add1);
+                addc(r+1,-add2);
+            }
+            else {
+                ll l, r;
+                scanf("%lld%lld",&l,&r);
+                ll ans = 0;
+                ans = get_sumb(l)+get_sumc(r)-get_sumc(l);
+                printf("%lld\n",ans);
+            }
+        }
+	}
+ 	return 0;
+}

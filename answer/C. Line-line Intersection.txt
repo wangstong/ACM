@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+map<pair<ll,ll>, ll> mp1;
+map<pair<pair<ll,ll>,ll>, ll> mp2;
+int main(int argc, char** argv) {
+	int t; scanf("%d",&t);
+	while (t--) {
+		int n; scanf("%d",&n);
+		ll ans = 0;
+		mp1.clear(); mp2.clear();
+		for (int i = 1; i <= n; i++) {
+			ll x1, x2, y1, y2;
+			scanf("%lld%lld%lld%lld",&x1,&y1,&x2,&y2);
+			ll a = x2-x1, b = y2-y1, c = x1*y2-x2*y1;
+			ll gcd = __gcd(a,b);
+			a /= gcd, b /= gcd, c /= gcd;
+			mp1[make_pair(a,b)]++;
+			mp2[make_pair(make_pair(a,b),c)]++;
+			ans += i-1- mp1[make_pair(a,b)] + mp2[make_pair(make_pair(a,b),c)];
+		}
+		printf("%lld\n",ans);
+	}
+ 	return 0;
+}

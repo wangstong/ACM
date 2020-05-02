@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const int maxn = 25;
+int k, cnt, fa[maxn], vis[maxn];
+vector<int> ve[maxn], ans;
+int find(int u) {
+    if (u != fa[u]) fa[u] = find(fa[u]);
+    return fa[u];
+}
+void join(int u, int v) {
+    int a = find(u);
+    int b = find(v);
+    if (a != b)
+        fa[a] = b;
+}
+void dfs(int u, int fa) {
+    ans.push_back(u);
+    if (u == k) {
+        cnt++;
+        printf("%d",ans[0]);
+        for (int i = 1; i < ans.size(); i++)
+            printf(" %d",ans[i]);
+        printf("\n");
+        return;
+    }
+    for (int i = 0; i < ve[u].size(); i++) {
+        int to = ve[u][i];
+        if (!vis[to]) {
+            vis[to] = true;
+            dfs(to,u);
+            vis[to] = false;
+            auto iter = ans.end();
+            iter--;
+            ans.erase(iter);
+        }
+    }
+}
+int main() {
+    //freopen("input.txt","r",stdin);
+    //freopen("output.txt","w",stdout);
+    int kase = 0;
+    while (cin >> k) {
+        for (int i = 1; i <= maxn; i++) ve[i].clear();
+        for (int i = 1; i <= maxn; i++) fa[i] = i;
+        ans.clear();
+        int u, v;
+        while (cin >> u >> v && u) {
+            ve[u].push_back(v);
+            ve[v].push_back(u);
+            join(u,v);
+        }
+        printf("CASE %d:\n",++kase);
+        cnt = 0;
+        if (find(1) == find(k)) {
+            for (int i = 1; i <= maxn; i++)
+                sort(ve[i].begin(),ve[i].end());
+            memset(vis,0,sizeof(vis));
+            vis[1] = true;
+            dfs(1,-1);
+        }
+        printf("There are %d routes from the firestation to streetcorner %d.\n", cnt, k);
+    }
+    return 0;
+}
