@@ -51,3 +51,4 @@ public:
  * int param_4 = obj->min();
  */
 ```
+
